@@ -1,4 +1,4 @@
-package com.aia.repairman.sybase;
+package com.aia.repairman.compare;
 
 import cn.hutool.core.util.ReUtil;
 

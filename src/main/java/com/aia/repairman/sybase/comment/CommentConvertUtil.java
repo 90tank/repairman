@@ -63,8 +63,7 @@ public class CommentConvertUtil {
     public void nullState_of_B2S(PushbackReader fileReader, FileWriter fileWriter) throws IOException {
         int ch = fileReader.read();
 
-        switch (ch)
-        {
+        switch (ch) {
             case '/':
                 int next_ch = fileReader.read();
                 if (next_ch == '*') {
@@ -166,22 +165,10 @@ public class CommentConvertUtil {
 
                             fileReader.unread(ch_2);
                             fileReader.unread(ch_1);
-
-                            System.out.println( "state : " +this.pairState );
-                            System.out.println("unread 写入换行符号 \\n");
-
-                            System.out.println(ch_2);
-                            System.out.println(ch_1);
-
                         } else {
                             // 非成对 后面的内容无需换行
-
                             fileReader.unread(ch_2);
                             fileReader.unread(ch_1);
-
-                            System.out.println("*/ 不成对 unread");
-                            System.out.println(ch_2);
-                            System.out.println(ch_1);
                         }
 
 
@@ -212,7 +199,6 @@ public class CommentConvertUtil {
                 }
                 break;
             case EOF:
-//                fileWriter.write(ch);
                 state = CommnetConvertState.END_STATE;
                 break;
 
@@ -248,7 +234,6 @@ public class CommentConvertUtil {
                 state = CommnetConvertState.NULL_STATE; // 行结束 (linux or windows)
                 break;
             case EOF:
-//                fileWriter.write(ch);
                 state = CommnetConvertState.END_STATE; // 文件结束
                 break;
             default:
@@ -271,7 +256,6 @@ public class CommentConvertUtil {
                 state = CommnetConvertState.NULL_STATE;
                 break;
             case EOF:
-//                fileWriter.write(ch);
                 state = CommnetConvertState.END_STATE;
                 break;
 /*            // 换行符替换
@@ -287,7 +271,6 @@ public class CommentConvertUtil {
                 break;
         }
     }
-
 }
 
 

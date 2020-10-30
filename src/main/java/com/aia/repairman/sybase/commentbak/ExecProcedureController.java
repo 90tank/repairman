@@ -1,7 +1,6 @@
-package com.aia.repairman.sybase;
+package com.aia.repairman.sybase.commentbak;
 
 
-import com.aia.repairman.sybase.service.ExecSybase2ProcedureService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.RequestMapping;
