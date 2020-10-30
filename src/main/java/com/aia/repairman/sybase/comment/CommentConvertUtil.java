@@ -154,17 +154,13 @@ public class CommentConvertUtil {
                     // CR LF
                     // 13 10 注意读取 和回退的方向 ！！！
                     if (('\r' != ch_1)&&(('\n' != ch_2))  && (EOF != ch_1) ) {  // */ 后面不是换行 文件也没有结束 ，输出文件写入换行符号
-
-
                         // 遇到*/ 发现已经成对
                         if (this.pairState == 0) { // 若成对则换行，换行之后状态变为未知
-
-
-
                             //输出回车是因为要是在遇到“*/”，说明注释已经结束了，后面的数据
                             //不再是注释的一部分，而此时本行数据已经被“--”修饰为注释内容，要是不换行，“*/”
                             //后面的数据也会被当做是注释的一部分,即使“*/”后面仍为注释，那么也最好输出回车，
                             //因为这是两块相互独立的注释，不换行，就会被认为是一条注释
+                            fileWriter.write('\r');
                             fileWriter.write('\n');
                             state = CommnetConvertState.NULL_STATE;
 
@@ -191,6 +187,7 @@ public class CommentConvertUtil {
 
                     // 是换行或文件结尾 （表示后面已经没有内容 只有换行符或者文件结束符 ，则直接写入）
                     } else {
+                        fileWriter.write('\r'); // */ 后面若是换行 或 EOF ，则直接写入
                         fileWriter.write('\n'); // */ 后面若是换行 或 EOF ，则直接写入
 
                         System.out.println("print \\n after pair */ ");
@@ -238,14 +235,14 @@ public class CommentConvertUtil {
     void singleCommentState_of_B2S(PushbackReader fileReader, FileWriter fileWriter) throws IOException {
         int ch = fileReader.read();
         switch (ch) {
-            // 换行符替换
+/*            // 换行符替换
             case '\r':
                 int the_next_char = fileReader.read();
                 if (the_next_char == '\n') {
                     fileWriter.write('\n');
                 }
                 state = CommnetConvertState.NULL_STATE;
-                break;
+                break;*/
             case '\n':
                 fileWriter.write(ch);
                 state = CommnetConvertState.NULL_STATE; // 行结束 (linux or windows)
@@ -277,14 +274,14 @@ public class CommentConvertUtil {
 //                fileWriter.write(ch);
                 state = CommnetConvertState.END_STATE;
                 break;
-            // 换行符替换
+/*            // 换行符替换
             case '\r':
                 int the_next_char = fileReader.read();
                 if (the_next_char == '\n') {
                     fileWriter.write('\n');
                 }
                 state = CommnetConvertState.NULL_STATE;
-                break;
+                break;*/
             default:
                 fileWriter.write(ch);
                 break;
