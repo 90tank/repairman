@@ -1,6 +1,6 @@
 --/*a*/
 --/*a
-----/*bsss--/*haha*/*/
+----/*bsss--/*haha*/aaa*/
 --*/
 select
 select
@@ -117,21 +117,18 @@ select * from ttest
                 @dept char(2),
                 @desk char(3),
 	  --/* modified by Rickie Hui 5/25/2007 for extend the length of the field to handle long cc description */
-	  --/* Remarked >> start */
-    
+	  --/* Remarked >> start */    
           --/*      @e_cc_to varchar(100),	*/
           --/*      @c_cc_to varchar(100),	*/
 	  --/* Remarked << End */
-	  --/* Added >> start */
-   
+	  --/* Added >> start */   
                 @e_cc_to varchar(150),                
 	--	@e_cc_to_line1 varchar(90),
 	--	@e_cc_to_line2 varchar(60),
 		@c_cc_to varchar(150),
 	--	@c_cc_to_line1 varchar(90),
 	--	@c_cc_to_line2 varchar(60),
-	  --/* Added << end */
-   
+	  --/* Added << end */   
                 @copy_to varchar(100),
                 @tel_no varchar(30)
 
@@ -146,22 +143,18 @@ select * from ttest
 	--/* 12-09-2005 End */
 
         --/* modified by Rickie Hui 5/25/2007 for enlarge agy, agt full name to 45 and add new field agt_type */
-  	--/* Added >> start */
-    
+  	--/* Added >> start */    
 	declare    @agt_type 		char(3),
 		   @agt_type_desc_e 	char(50),
 	   	   @agt_type_desc_c	char(50)
   	--/* Added << End */
 
         --/* added by Rickie Hui 04/19/2010 for Enhancement for Address Zone Enhancement */
-  	--/* Added >> start */
-   
+  	--/* Added >> start */   
 	declare    @addrzone		varchar(5)
-	--/* Added << End */
-        
+	--/* Added << End */        
 
- --/* Modified by Rickie Hui 07/07/2010 for Enhancement for Macau Case Enhancement*/
- 
+ --/* Modified by Rickie Hui 07/07/2010 for Enhancement for Macau Case Enhancement*/ 
  --/* Modified >> start */
         declare	   @macau_case 		char(10)
  --/* Modified << end */
@@ -187,8 +180,7 @@ begin
     if substring(@pol_no,2,1) = '4' 
     begin
         select @country = 'NMC'
- --/* Modified by Rickie Hui 07/07/2010 for Enhancement for Macau Case Enhancement*/
- 
+ --/* Modified by Rickie Hui 07/07/2010 for Enhancement for Macau Case Enhancement*/ 
  --/* Modified >> start */
         select @macau_case = "MC"
  --/* Modified << end */
@@ -196,8 +188,7 @@ begin
     else
     begin
         select @country = 'NHK'
- --/* Modified by Rickie Hui 07/07/2010 for Enhancement for Macau Case Enhancement*/
- 
+ --/* Modified by Rickie Hui 07/07/2010 for Enhancement for Macau Case Enhancement*/ 
  --/* Modified >> start */
         select @macau_case = "HK"
  --/* Modified << end */
@@ -210,8 +201,7 @@ begin
     begin
  --/* New added <=== */
         select @country = 'MAC'
- --/* Modified by Rickie Hui 07/07/2010 for Enhancement for Macau Case Enhancement*/
- 
+ --/* Modified by Rickie Hui 07/07/2010 for Enhancement for Macau Case Enhancement*/ 
  --/* Modified >> start */
         select @macau_case = "MC"
  --/* Modified << end */
@@ -219,8 +209,7 @@ begin
     else
     begin
         select @country = 'HKG'
- --/* Modified by Rickie Hui 07/07/2010 for Enhancement for Macau Case Enhancement*/
- 
+ --/* Modified by Rickie Hui 07/07/2010 for Enhancement for Macau Case Enhancement*/ 
  --/* Modified >> start */
 	select @macau_case = "HK"
  --/* Modified << end */
@@ -317,8 +306,7 @@ select @prem_amt = 0.0
                                      
             @agy_l_code char(5) ,          
   --/* modified by Rickie Hui 5/25/2007 for enlarge agy, agt full name to 45 and add new field agt_type */
-  --/* Remarked >> start */
-               
+  --/* Remarked >> start */               
   --/*        @agy_l_name char(30) ,                        */
   --/* Remarked << end */
   --/* Added >> start */
@@ -329,8 +317,7 @@ select @prem_amt = 0.0
     declare @optout char(1)     --/* 02-26-2003 Agent Opt-Out */
 
   --/* modified by Rickie Hui 5/25/2007 for enlarge agy, agt full name to 45 and add new field agt_type */
-  --/* Remarked >> start */
-                                   
+  --/* Remarked >> start */                                   
   --/*  exec @r = db_cor..po_ser_agt    '1', @comp_no, @pol_no, '0',	*/
   --/* Remarked << end */
   --/* Added >> start */
@@ -350,19 +337,15 @@ select @prem_amt = 0.0
  --/* modified by Rickie Hui 5/25/2007 for enlarge agy, agt full name to 45 and add new field agt_type */
  --/* Added >> start */
             @agt_type output            
- --/* Added << End */
-       
+ --/* Added << End */       
 
  --/* modified by Rickie Hui 5/25/2007 for enlarge agy, agt full name to 45 and add new field agt_type */
- --/* Added >> start				*/
-	
+ --/* Added >> start				*/	
  exec aidcconfig..po_get_agttype_desc @agt_type, @agt_type_desc_e output, @agt_type_desc_c output
- --/* Added << End 				*/
-                                                                                                                                                                                                                                                                                                              
+ --/* Added << End 				*/                                                                                                                                                                                                                                                                                                              
 
  --/* modified by Rickie Hui 9/6/2007 for handle c.c. description not shown when Orphan Policy */
- --/* Remarked >> start */
-  
+ --/* Remarked >> start */  
  --/* if @agtcode = null or @agtcode <= '' */
  --/* Remarked << End */
  --/* modified by Rickie Hui 9/6/2007 for handle c.c. description not shown when Orphan Policy */
@@ -400,8 +383,7 @@ select @prem_amt = 0.0
         select @e_cc_to = 'C.C. : ('+rtrim(@serv_agency)+')('+rtrim(@serv_agent)+')'+ @tel_no
         select @c_cc_to = '¦ãÑ+¡P : ('+rtrim(@serv_agency)+')('+rtrim(@serv_agent)+')'+ @tel_no   
 	--/* modified by Rickie Hui 5/25/2007 for extend the length of the field to handle long cc description */
-	--/* Added >> start */
-  
+	--/* Added >> start */  
 	--IF datalength(@e_cc_to) > 90
 	--BEGIN
 	--   select @e_cc_to_line1 = Left(@e_cc_to, 90)
@@ -417,8 +399,7 @@ select @prem_amt = 0.0
 --	   select @e_cc_to = @c_cc_to_line1 + ""
 --""+@c_cc_to_line2
 --	END
-	--/* Added << end */
-	
+	--/* Added << end */	
         select @copy_to = 'CUSTOMER!AGENT!'
 
         --/* 02-26-2003 Agent Opt-Out */
@@ -429,8 +410,7 @@ select @prem_amt = 0.0
         end
         --/* End 02-26-2003 */
 
-	--/* 12-09-2005 For Assignee Copy Handling */
-	
+	--/* 12-09-2005 For Assignee Copy Handling */	
 	
         exec po_chk_assignee @doc_id, @pol_no,  @assi_adr_1 output, @assi_adr_2 output, @assi_adr_3 output, @assi_adr_4 output, @assi_adr_5 output,@assignee output, @add_assignee output 
         if @add_assignee = 'Y'
@@ -459,8 +439,7 @@ select @prem_amt = 0.0
        else
           select @csc_phone = ( select remark from db_cor..tuw_misc where cat ="HOTL" and code = "CITIHKG")
        end
-    --/* 02/13/2014 end */
-		
+    --/* 02/13/2014 end */		
     if @agt_type = "DIR"
        if @country = "MAC" or @country = "NMC"
           select @csc_phone = ( select remark from db_cor..tuw_misc where cat ="HOTL" and code = "DIRMAC")
@@ -481,11 +460,9 @@ select @prem_amt = 0.0
         where comp_no = @comp_no and pol_no = @pol_no )
 
     --/* added by Rickie Hui 04/19/2010 for Enhancement for Address Zone Enhancement */
-    --/* Added >> start */
- 
+    --/* Added >> start */ 
     exec aidcconfig..po_get_address_zone @doc_id,1,@addrzone output
-    --/* Added << End */
-                                       
+    --/* Added << End */                                       
                              
     set rowcount 1
     --/* Start Modify by Jinghua Xu,04/15/2015 */
@@ -505,20 +482,17 @@ select @prem_amt = 0.0
     exec db_print..po_doc_dpdsk @user_profile, @pol_no, @dept output, @desk output
     --/* End Modify by Jinghua Xu,04/15/2015 */
 
-    --/* added by Rickie Hui 6/10/2004 ==> */
-    
+    --/* added by Rickie Hui 6/10/2004 ==> */    
     EXEC db_print..po_get_letrseq 1, @li_letter_gen_seq output
     select @ls_letter_gen_seq = CONVERT(varchar(13), @li_letter_gen_seq)
     select @ls_cycle_date = @cyc_date  
 
-    --/************insert into tdata_pool_ctl**********/
-                                      
+    --/************insert into tdata_pool_ctl**********/                                      
     insert into db_print..tdata_pool_ctl                    
 	( cycle_date, letter_gen_seq, user_key_1, user_key_2, user_key_3, user_key_4, user_key_5, letter_delete_ind)
 		values                   
 	( @cyc_date, @li_letter_gen_seq, @ls_cycle_date, @ls_letter_gen_seq, "041", @doc_id, @pol_no, 'N') 
-    --/* <== added by Rickie Hui 6/10/2004 */
-    
+    --/* <== added by Rickie Hui 6/10/2004 */    
               
     insert into db_print..tdata_pool 
     (cycle_date, comp_no, doc_id,pol_no,country,
@@ -539,11 +513,9 @@ select @prem_amt = 0.0
  --/* Added >> start */
     assi_adr_1, assi_adr_2, assi_adr_3, assi_adr_4, assi_adr_5, assignee, agt_type, agt_type_desc_e, agt_type_desc_c, 
  --/* Added << end */
- --/* added by Rickie Hui 04/19/2010 for Enhancement for Address Zone Enhancement and withcheque Enhancement*/
- 
+ --/* added by Rickie Hui 04/19/2010 for Enhancement for Address Zone Enhancement and withcheque Enhancement*/ 
  --/* Added >> start */
- --/* Modified by Rickie Hui 07/07/2010 for Enhancement for Macau Case Enhancement*/
- 
+ --/* Modified by Rickie Hui 07/07/2010 for Enhancement for Macau Case Enhancement*/ 
  --/* Modified >> start */
     addrzone, withcheque, macau_case)
  --/* Modified << end */
@@ -568,8 +540,7 @@ select @prem_amt = 0.0
  --/* Added << end */
  --/* added by Rickie Hui 04/19/2010 for Enhancement for Address Zone Enhancement and withcheque Enhancement*/
  --/* Added >> start */
- --/* Modified by Rickie Hui 07/07/2010 for Enhancement for Macau Case Enhancement*/
- 
+ --/* Modified by Rickie Hui 07/07/2010 for Enhancement for Macau Case Enhancement*/ 
  --/* Modified >> start */
     @addrzone, null, @macau_case)
  --/* Modified << end */

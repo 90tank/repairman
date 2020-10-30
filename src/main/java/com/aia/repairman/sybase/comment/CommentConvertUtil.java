@@ -13,9 +13,9 @@ public class CommentConvertUtil {
     public int pairState = 0;
 
     public static void main(String[] args) throws IOException {
-        FileReader filerReader = new FileReader("D:\\test\\nest_comment_sql.sql");
+        FileReader filerReader = new FileReader("D:\\IdeaProjects\\repairman\\src\\test\\java\\com\\aia\\repairman\\compare\\nest_comment_sql.sql");
 
-        FileWriter writer = new FileWriter("D:\\test\\fixed_nest_comment_sql.sql");
+        FileWriter writer = new FileWriter("D:\\IdeaProjects\\repairman\\src\\test\\java\\com\\aia\\repairman\\compare\\fixed_nest_comment_sql.sql");
         int pushBackLimit = 5;
         PushbackReader reader = new PushbackReader(filerReader,pushBackLimit);
         CommentConvertUtil convertUtil = new CommentConvertUtil();
@@ -135,16 +135,32 @@ public class CommentConvertUtil {
 
                     fileWriter.write('*'); // 此处是将*/ 替换成 -- （实际也可以不替换）
                     fileWriter.write('/');
+
+                    while(true) {
+                        // */空格/r/n 情况需要先去判断空格 空格直接写
+                        int testSpace = fileReader.read();
+                        if(Character.isSpaceChar(testSpace) || testSpace=='\t' ){
+                            fileWriter.write(testSpace);
+                        }else{
+                            fileReader.unread(testSpace);
+                            break;
+                        }
+                    }
+
                     int ch_1 = fileReader.read();
                     int ch_2 = fileReader.read();
-
 
                     // 下一字符非换行或文件结尾
                     // CR LF
                     // 13 10 注意读取 和回退的方向 ！！！
                     if (('\r' != ch_1)&&(('\n' != ch_2))  && (EOF != ch_1) ) {  // */ 后面不是换行 文件也没有结束 ，输出文件写入换行符号
+
+
                         // 遇到*/ 发现已经成对
                         if (this.pairState == 0) { // 若成对则换行，换行之后状态变为未知
+
+
+
                             //输出回车是因为要是在遇到“*/”，说明注释已经结束了，后面的数据
                             //不再是注释的一部分，而此时本行数据已经被“--”修饰为注释内容，要是不换行，“*/”
                             //后面的数据也会被当做是注释的一部分,即使“*/”后面仍为注释，那么也最好输出回车，
@@ -160,6 +176,7 @@ public class CommentConvertUtil {
 
                             System.out.println(ch_2);
                             System.out.println(ch_1);
+
                         } else {
                             // 非成对 后面的内容无需换行
 
@@ -172,7 +189,7 @@ public class CommentConvertUtil {
                         }
 
 
-                    // 下4字符是换行或文件结尾 （表示后面已经没有内容 只有换行符或者文件结束符 ，则直接写入）
+                    // 是换行或文件结尾 （表示后面已经没有内容 只有换行符或者文件结束符 ，则直接写入）
                     } else {
                         fileWriter.write('\n'); // */ 后面若是换行 或 EOF ，则直接写入
 

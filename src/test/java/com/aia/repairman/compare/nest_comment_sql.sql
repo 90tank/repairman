@@ -1,6 +1,6 @@
 /*a*/
 /*a
-/*bsss/*haha*/*/
+/*bsss/*haha*/aaa*/
 */
 select
 select
