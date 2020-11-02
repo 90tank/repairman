@@ -1,0 +1,11 @@
+package com.aia.repairman.service;
+
+import java.io.IOException;
+
+import com.aia.repairman.util.ClientResult;
+
+public interface RepairmanService {
+    ClientResult handelConvertBeforeFixed(String dirName,String targetPath);
+    ClientResult handelConvertAfterFixed(String dirName,String targetPath);
+    ClientResult handelSynchronizeFixed(String dirName);
+}

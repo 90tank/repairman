@@ -1,9 +1,13 @@
 package com.aia.repairman.sybase.comment;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PushbackReader;
+
+import com.aia.repairman.util.ClientResult;
 
 import static sun.nio.ch.IOStatus.EOF;
 
@@ -11,16 +15,6 @@ public class CommentConvertUtil {
 
     public CommnetConvertState state = CommnetConvertState.NULL_STATE;
     public int pairState = 0;
-
-    public static void main(String[] args) throws IOException {
-        FileReader filerReader = new FileReader("D:\\IdeaProjects\\repairman\\src\\test\\java\\com\\aia\\repairman\\compare\\nest_comment_sql.sql");
-
-        FileWriter writer = new FileWriter("D:\\IdeaProjects\\repairman\\src\\test\\java\\com\\aia\\repairman\\compare\\fixed_nest_comment_sql.sql");
-        int pushBackLimit = 5;
-        PushbackReader reader = new PushbackReader(filerReader,pushBackLimit);
-        CommentConvertUtil convertUtil = new CommentConvertUtil();
-        convertUtil.blockComment2SingleLineComment(reader, writer);
-    }
 
     // /* --
     // */ --
