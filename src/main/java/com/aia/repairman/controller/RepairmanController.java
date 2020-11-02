@@ -1,6 +1,7 @@
 package com.aia.repairman.controller;
 
 
+import com.sun.org.glassfish.gmbal.ParameterNames;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,8 +20,10 @@ public class RepairmanController {
     private RepairmanService repairmanService;
 
 
-    @RequestMapping(value = "/db2/autoConvertBeforeFixedSql",method = RequestMethod.GET)
-    public ClientResult handelConvertBeforeFixed(String driFile,String targetPath) {
+    @RequestMapping(value = "/db2/autoConvertBeforeFixedSql",method = RequestMethod.POST)
+    public ClientResult handelConvertBeforeFixed(String driFile, String targetPath) {
+        System.out.println(driFile);
+        System.out.println(targetPath);
     	ClientResult handelSql = repairmanService.handelConvertBeforeFixed(driFile,targetPath);
         return handelSql;
     }
