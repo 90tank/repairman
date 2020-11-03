@@ -96,10 +96,12 @@ public class RepairmanServiceImpl implements RepairmanService {
 			    		result.setErrorMessage(e.getMessage());
 			    		log.error("FileWriter is error(Comment),Exception:"+e.getMessage());
 					}
-			        int pushBackLimit = 5;
-			        PushbackReader reader = new PushbackReader(filerReader,pushBackLimit);
-			        CommentConvertUtil convertUtil = new CommentConvertUtil();
+
+
 			        try {
+						int pushBackLimit = 5;
+						PushbackReader reader = new PushbackReader(filerReader,pushBackLimit);
+						CommentConvertUtil convertUtil = new CommentConvertUtil();
 						convertUtil.blockComment2SingleLineComment(reader, writer);
 					} catch (IOException e) {
 						result.setState(2);
@@ -107,6 +109,7 @@ public class RepairmanServiceImpl implements RepairmanService {
 			    		result.setErrorMessage(e.getMessage());
 			    		log.error("reader and writer are error,Exception:"+e.getMessage());
 					}
+
 				}
 			}else {
 				result.setState(1);
