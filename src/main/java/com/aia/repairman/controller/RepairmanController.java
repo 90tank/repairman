@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.aia.repairman.service.RepairmanService;
@@ -21,16 +22,17 @@ public class RepairmanController {
 
 
     @RequestMapping(value = "/db2/autoConvertBeforeFixedSql",method = RequestMethod.POST)
-    public ClientResult handelConvertBeforeFixed(String driFile, String targetPath) {
-        System.out.println(driFile);
+    public ClientResult handelConvertBeforeFixed(@RequestParam("dirFile")String dirFile, @RequestParam("targetPath")String targetPath) {
+        System.out.println(dirFile);
         System.out.println(targetPath);
-    	ClientResult handelSql = repairmanService.handelConvertBeforeFixed(driFile,targetPath);
+    	ClientResult handelSql = repairmanService.handelConvertBeforeFixed(dirFile,targetPath);
         return handelSql;
     }
     
-    @RequestMapping(value = "/db2/autoConvertAfterFixedSql",method = RequestMethod.GET)
-    public ClientResult handelConvertAfterFixed(String driFile,String targetPath) {
-    	ClientResult handelSql = repairmanService.handelConvertAfterFixed(driFile,targetPath);
+    @RequestMapping(value = "/db2/autoConvertAfterFixedSql",method = RequestMethod.POST
+    		)
+    public ClientResult handelConvertAfterFixed(@RequestParam("sourceDirFile")String sourceDirFile,@RequestParam("targetPath")String targetPath) {
+    	ClientResult handelSql = repairmanService.handelConvertAfterFixed(sourceDirFile,targetPath);
         return handelSql;
     } 
     @RequestMapping(value = "/db2/test",method = RequestMethod.GET)

@@ -132,7 +132,7 @@ public class S2ssUdf {
                                 "GO\n" +
                                 "SET QUOTED_IDENTIFIER ON\n" +
                                 "GO");
-                        writer.write(S2ssConstant.CHAR_LENGTH_VARCHAR); //写入函数内容到文件
+                        writer.write(RepairManConstant.CHAR_LENGTH_VARCHAR); //写入函数内容到文件
                     } else {
                         log.error("need function content /logic : "+ key);
                     }
