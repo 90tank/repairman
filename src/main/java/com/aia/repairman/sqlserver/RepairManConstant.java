@@ -9,7 +9,7 @@ public class RepairManConstant {
             "\t          THEN 1\n" +
             "\t\t  ELSE len(replace(@expression, ' ', '.'))\n" +
             " \t   END\n" +
-            "END";
+            "END\n";
     public static String HEADER="GO\r\n" + 
     		"\r\n" +  
     		"SET ANSI_NULLS OFF\r\n" + 

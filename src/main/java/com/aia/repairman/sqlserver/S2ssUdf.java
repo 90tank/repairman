@@ -1,13 +1,29 @@
 package com.aia.repairman.sqlserver;
 
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.util.StringUtils;
-
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import org.springframework.util.StringUtils;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * 处理系统转换时生成的s2Ss用户自定义函数
@@ -32,9 +48,8 @@ public class S2ssUdf {
 
         File file = new File(originDirPath);
         File [] fs = file.listFiles();
-
-        for (File tmpFile : fs) {
-            checkS2ss(tmpFile, targetDir, dbName);
+        for(int j=0;j<fs.length;j++) {
+        	checkS2ss(fs[j], targetDir, dbName);
         }
     }
 
@@ -122,7 +137,7 @@ public class S2ssUdf {
                 String outPutS2ssFuncPath = s2ssDirPath + File.separator + key + ".sql";
                 BufferedWriter writer = null;
                 try {
-                    writer = new BufferedWriter(new FileWriter(outPutS2ssFuncPath, false));
+                    writer = new BufferedWriter(new FileWriter(outPutS2ssFuncPath, true));
 
                     // 判断写入类型
                     if (key.equalsIgnoreCase("char_length_varchar")) {
