@@ -439,18 +439,17 @@ public class RepairmanServiceImpl implements RepairmanService {
 			}
 			fixFlag = true;
 		}
-		// 3. s2ss todo
-		S2ssUdf s2ss = new S2ssUdf();
-		File fileS2ss = new File(tmpPath);
-		if (fileS2ss.exists() && fileS2ss.isDirectory()) {
-			File[] files = fileS2ss.listFiles();
-			for (int i = 0; i < files.length; i++) {
-				String dbName = files[i].getName();
-				s2ss.handleS2ss(files[i].getAbsolutePath(), targetPath, dbName);
-			}
-		}
-
 		if (fixFlag) {
+			// 3. s2ss todo
+			S2ssUdf s2ss = new S2ssUdf();
+			File fileS2ss = new File(tmpPath);
+			if (fileS2ss.exists() && fileS2ss.isDirectory()) {
+				File[] files = fileS2ss.listFiles();
+				for (int i = 0; i < files.length; i++) {
+					String dbName = files[i].getName();
+					s2ss.handleS2ss(files[i].getAbsolutePath(), targetPath, dbName);
+				}
+			}
 			// copy结果文件
 			try {
 				File resultFile = new File(targetPath + File.separator + "result");
@@ -491,16 +490,25 @@ public class RepairmanServiceImpl implements RepairmanService {
 					if (files[j].isFile()) {
 						continue;
 					}
-					File[] dbFiles = files[j].listFiles();
 					String dbName = files[j].getName();
+					String tempPath="";
+					if(targetPath.contains("process")) {
+						tempPath=files[j].getAbsolutePath();
+					}else {
+						tempPath=files[j].getAbsolutePath()+File.separator+"StoreProcedure";
+					}
+					File[] tempFiles=new File(tempPath).listFiles();
 					File resultFile2 = new File(targetNameFile.getAbsoluteFile() + File.separator + "process"
 							+ File.separator + "creatTableAfter" + File.separator + dbName);
 					isExit(resultFile2);
-					for (int i = 0; i < dbFiles.length; i++) {
+					for (int i = 0; i < tempFiles.length; i++) {
+						if (tempFiles[i].isDirectory()) {
+							continue;
+						}
 						try {
-							filerReader = new FileReader(dbFiles[i]);
+							filerReader = new FileReader(tempFiles[i]);
 							writer = new FileWriter(
-									resultFile1 + File.separator + dbName + File.separator + dbFiles[i].getName());
+									resultFile1 + File.separator + dbName + File.separator + tempFiles[i].getName());
 							br = new BufferedReader(filerReader);
 							String fengli = "(\\b(?i)create\\b)\\s+((?i)table)(\\s+)(?<tableName>[^ ^\\(]+)"; // 提取风级的正则表达式
 							Pattern pafengli = Pattern.compile(fengli);
@@ -605,18 +613,25 @@ public class RepairmanServiceImpl implements RepairmanService {
 						continue;
 					}
 					String dbName = files[i].getName();
+					String tempPath="";
+					if(sourcePath.contains("process")) {
+						tempPath=files[i].getAbsolutePath();
+					}else {
+						tempPath=files[i].getAbsolutePath()+File.separator+"StoreProcedure";
+					}
+					File[] tempFiles=new File(tempPath).listFiles();
 					File resultFile2 = new File(targetNameFile.getAbsoluteFile() + File.separator + "process"
 							+ File.separator + "addHeader" + File.separator + dbName);
 					isExit(resultFile2);
-					File[] sourceFiles = files[i].listFiles();
-					for (int j = 0; j < sourceFiles.length; j++) {
-						if (sourceFiles[j].isDirectory()) {
+					
+					for (int j = 0; j < tempFiles.length; j++) {
+						if (tempFiles[j].isDirectory()) {
 							continue;
 						}
 						try {
-							filerReader = new FileReader(sourceFiles[j]);
+							filerReader = new FileReader(tempFiles[j]);
 							writer = new FileWriter(
-									resultFile1 + File.separator + dbName + File.separator + sourceFiles[j].getName());
+									resultFile1 + File.separator + dbName + File.separator + tempFiles[j].getName());
 							br = new BufferedReader(filerReader);
 							StringBuilder strBuild = new StringBuilder();
 							String fengli = ".*((?i)create)\\s+((?i)Proc|(?i)PROCEDURE)(\\s+)(?<procName>[^ ^\\(]+).*";

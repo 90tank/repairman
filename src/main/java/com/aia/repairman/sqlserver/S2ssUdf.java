@@ -134,7 +134,7 @@ public class S2ssUdf {
                 System.out.println("key:-->"+key);
                 System.out.println("value:-->"+value);
                 // 创建文件
-                String outPutS2ssFuncPath = s2ssDirPath + File.separator + key + ".sql";
+                String outPutS2ssFuncPath = s2ssDirPath + File.separator +dbName+"_"+ key + ".sql";
                 BufferedWriter writer = null;
                 try {
                     writer = new BufferedWriter(new FileWriter(outPutS2ssFuncPath, true));
